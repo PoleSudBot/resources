@@ -1,0 +1,310 @@
+:root {
+  --menu-radius: 16px;
+  --menu-primary: var(--color-primary);
+  --menu-bg-card: var(--color-background-main);
+  --menu-bg-page: var(--color-background-card);
+  --menu-text-main: var(--color-text-dark);
+  --menu-text-sub: var(--color-text-muted);
+  --menu-border: var(--color-border-light);
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: "AlibabaHealthFont2", sans-serif;
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper {
+  /* Reduced width from 960px to 720px for better mobile readability */
+  width: 720px;
+  background-color: var(--color-background-card);
+  border-radius: 24px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+  position: relative;
+  margin: 0 auto;
+}
+
+.header {
+  /* Changed from gradient to Miku image/color mode */
+  background-color: var(--color-primary);
+  background-image: url("{{ asset('./img/banner.webp') }}");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 180px; /* Increased height to show more image */
+  padding: 24px;
+  position: relative;
+  border-radius: 24px 24px 0 0;
+  display: flex;
+  align-items: flex-end; /* Align title/stats to bottom */
+  justify-content: space-between; 
+  border-bottom: none;
+  box-shadow: inset 0 -40px 60px -10px rgba(0, 0, 0, 0.5); /* Stronger shadow for text readability on image */
+}
+
+.header-title-large {
+    font-size: 32px;
+    font-weight: 800;
+    color: #fff;
+    font-family: "fzrzFont", sans-serif;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    margin-left: 10px;
+    letter-spacing: 1px;
+    z-index: 5;
+}
+
+.header-logo { display: none; }
+.header::before { display: none; }
+.header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: linear-gradient(to bottom, transparent, var(--color-background-card));
+  pointer-events: none;
+}
+
+.header-stats {
+  display: flex;
+  gap: 15px;
+  z-index: 5;
+  background: rgba(0, 0, 0, 0.3); /* Darker background for contrast on image */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 8px 20px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  margin-bottom: 0;
+  margin-right: 5px;
+}
+
+.stat-box {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  width: auto;
+  min-width: 40px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stat-num {
+  font-size: 20px;
+  color: #fff;
+  font-family: "AlibabaHealthFont2", sans-serif;
+  font-weight: bold;
+  display: block;
+  line-height: 1.1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.9);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+.stat-box + .stat-box {
+  position: relative;
+  margin-left: 15px;
+}
+.stat-box + .stat-box::before {
+  content: "";
+  position: absolute;
+  left: -8px;
+  top: 20%;
+  height: 60%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.tips-section {
+  padding: 15px 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  background-color: var(--color-background-card);
+  border-bottom: 1px solid var(--color-border-light);
+  position: relative;
+  z-index: 1;
+}
+
+.tip-pill {
+  background: transparent;
+  color: var(--color-text-muted);
+  padding: 0;
+  border-radius: 0;
+  font-size: 15px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+}
+
+.primary-tip {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+.admin-tip {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+.tip-icon {
+  font-size: 16px;
+}
+
+.masonry-container {
+  /* Keeping 2 columns but with reduced overall width, this works better for mobile */
+  column-count: 2;
+  column-gap: 20px;
+  padding: 20px 25px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+.category-card {
+  break-inside: avoid-column;
+  display: inline-block;
+  width: 100%;
+  margin-bottom: 30px;
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: visible;
+  box-sizing: border-box;
+}
+
+.cat-header {
+  margin: 0 0 10px 0;
+  padding: 0 0 8px 0;
+  background: transparent;
+  color: var(--color-text-dark);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+.cat-title {
+  font-family: "AlibabaHealthFont2", sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color-primary); /* Use primary color directly for lighter/cuter look */
+  text-shadow: none;
+  display: flex;
+  align-items: center;
+}
+
+.cat-count {
+ display: none;
+}
+
+.plugin-list {
+  padding: 0;
+  background: transparent;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.empty-msg {
+    width: 100%;
+    text-align: center;
+    color: var(--color-text-muted);
+    padding: 10px;
+}
+
+.plugin-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 10px;
+  margin-bottom: 0;
+  background: #ffffff;
+  border: 1px solid var(--color-border-light);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+  transition: all 0.2s ease;
+  width: 100%; /* Single column items within the category column for better fit */
+  box-sizing: border-box;
+}
+
+.plugin-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    border-color: var(--color-primary);
+}
+
+.plugin-item.disabled {
+  opacity: 0.5;
+  background: #f8fafc;
+  filter: grayscale(1);
+}
+
+.p-id {
+    display: inline-block;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.1); 
+    background: var(--color-background-card);
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-right: 10px;
+    min-width: 20px;
+    text-align: center;
+}
+
+.p-content {
+  flex: 1;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.p-name {
+  font-size: 15px;
+  color: var(--color-text-dark);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left; /* Verify if center or left is better */
+}
+
+.badges {
+  display: none;
+}
+
+.plugin-item.disabled .p-name {
+  text-decoration: none;
+  color: var(--color-text-muted);
+}
+
+.footer-container {
+  position: relative;
+  z-index: 20;
+  text-shadow: none;
+  margin-top: 30px;
+  padding-bottom: 20px;
+  border-top: 1px solid var(--color-border-light);
+  padding-top: 20px;
+}

@@ -1,0 +1,147 @@
+{
+  "mode": "hybrid",
+  "colors": {
+    "primary": "#FF6699",
+    "primary_dark": "#D14775",
+    "text_light": "#ffffff",
+    "text_dark": "#4a2c36",
+    "text_muted": "#8c6b76",
+    "background_main": "#ffffff",
+    "background_card": "#fff5f8",
+    "border_light": "#ffe0ea",
+    "border_dark": "#ffb3cc",
+    "accent_green": "#66bb6a",
+    "accent_red": "#ef5350",
+    "accent_warning": "#ffa726",
+    "accent_blue": "#4589ff"
+  },
+  "component_colors": {
+    "global": {
+      "page_bg_accent": { "value": "#fff0f5", "maps_to": "background_card" },
+      "code_background_dark": { "value": "#2d1a20", "maps_to": "text_dark" }
+    },
+    "bot_profile": {
+      "wrapper_bg": { "value": "#fff5f8", "maps_to": "background_card" },
+      "border_main": { "value": "#ffe0ea", "maps_to": "border_light" },
+      "border_divider": { "value": "#fff0f5", "maps_to": "border_light" },
+      "text_title": { "value": "#FF6699", "maps_to": "primary" },
+      "text_content": { "value": "#D14775", "maps_to": "text_dark" },
+      "text_muted": { "value": "#8c6b76", "maps_to": "text_muted" },
+      "item_bg": { "value": "#ffffff", "maps_to": "background_main" },
+      "text_strong": { "value": "#4a2c36", "maps_to": "primary_dark" },
+      "notes_text": { "value": "#8c6b76", "maps_to": "text_muted" },
+      "notes_bg": { "value": "#fff0f5", "maps_to": "background_card" }
+    },
+    "my_info": {
+      "primary": { "value": "#FF6699", "maps_to": "primary" },
+      "accent": { "value": "#8c6b76", "maps_to": "primary" },
+      "tag_bg": { "value": "#ffa726", "maps_to": "accent_warning" },
+      "menu_text": { "value": "#4a2c36", "maps_to": "text_dark" }
+    },
+    "sign": {
+      "page_bg": { "value": "#fff5f8", "maps_to": "background_card" },
+      "avatar_shadow": { "value": "#ffe0ea", "maps_to": "border_light" },
+      "nickname_text": { "value": "#FF6699", "maps_to": "primary" },
+      "primary": { "value": "#FF6699", "maps_to": "primary" },
+      "primary_dark": { "value": "#D14775", "maps_to": "primary_dark" },
+      "divider": { "value": "#fff0f5", "maps_to": "border_light" },
+      "progress_border": { "value": "#ffe0ea", "maps_to": "border_light" }
+    },
+    "mahiro_bank": {
+      "gradient_start": { "value": "#ffb3cc", "maps_to": "primary" },
+      "gradient_end": { "value": "#ffe0ea", "maps_to": "primary" },
+      "header_text_light": { "value": "#ffffff", "maps_to": "text_light" },
+      "avatar_bg": { "value": "#ffffff", "maps_to": "background_main" },
+      "deco_bg": { "value": "#fff0f5", "maps_to": "background_card" },
+      "accent": { "value": "#8c6b76", "maps_to": "primary" },
+      "record_title": { "value": "#D14775", "maps_to": "primary_dark" },
+      "dashed_border": { "value": "#ffb3cc", "maps_to": "border_light" },
+      "status_expired_bg": { "value": "#90a4ae", "maps_to": "text_muted" },
+      "scrollbar_track": { "value": "#fff5f8", "maps_to": "background_main" },
+      "scrollbar_thumb_hover": { "value": "#8c6b76", "maps_to": "primary" }
+    },
+    "plugin_help_page": {
+      "header_bg": { "value": "#FF6699", "maps_to": "primary" },
+      "category_bg": { "value": "#fff5f8", "maps_to": "background_card" },
+      "card_title": { "value": "#D14775", "maps_to": "primary_dark" },
+      "card_bg": { "value": "#ffffff", "maps_to": "background_main" },
+      "card_border": { "value": "#ffe0ea", "maps_to": "border_light" },
+      "usage_bg": { "value": "#fff0f5", "maps_to": "background_card" },
+      "usage_text": { "value": "#4a2c36", "maps_to": "text_dark" },
+      "usage_border": { "value": "#ffb3cc", "maps_to": "border_light" }
+    },
+    "plugin_menu": {
+      "header_bg": { "value": "#FF6699", "maps_to": "primary" },
+      "text_light": { "value": "#ffffff", "maps_to": "text_light" },
+      "category_card_bg": { "value": "#ffffff", "maps_to": "background_main" },
+      "category_card_border": { "value": "#ffe0ea", "maps_to": "border_light" },
+      "item_bg": { "value": "#fff5f8", "maps_to": "background_card" }
+    },
+    "table": {
+      "header_text": { "value": "#D14775", "maps_to": "primary_dark" },
+      "table_bg": { "value": "#FFFFFF", "maps_to": "background_main" },
+      "row_even_bg": { "value": "#fff5f8", "maps_to": "background_card" },
+      "bg": { "value": "#FFFFFF", "maps_to": "background_main" },
+      "container_bg": { "value": "#fff0f5", "maps_to": "background_card" }
+    },
+    "header": {
+      "text": { "value": "#D14775", "maps_to": "text_dark" }
+    },
+    "tip": {
+      "text": { "value": "#8c6b76", "maps_to": "text_muted" }
+    },
+    "shop": {
+      "page_bg": { "value": "#fff5f8", "maps_to": "background_card" },
+      "primary_text": { "value": "#FF6699", "maps_to": "primary" },
+      "card_bg_inner": { "value": "#D14775", "maps_to": "primary_dark" },
+      "card_border_inner": { "value": "#4a2c36", "maps_to": "primary_dark" },
+      "card_bg_outer": { "value": "#8c6b76", "maps_to": "primary" },
+      "card_border_outer": { "value": "#5d3a43", "maps_to": "primary_dark" },
+      "item_bg": { "value": "#fff0f5", "maps_to": "background_card" },
+      "item_border": { "value": "#FF6699", "maps_to": "primary_dark" },
+      "item_deco": { "value": "#ffb3cc", "maps_to": "primary" },
+      "button_bg": { "value": "#FF6699", "maps_to": "primary" },
+      "line_dark": { "value": "#4a2c36", "maps_to": "primary_dark" }
+    },
+    "check": {
+      "title_bg": { "value": "#FF6699", "maps_to": "primary" },
+      "process_border": { "value": "#8c6b76", "maps_to": "primary" },
+      "network_text": { "value": "#D14775", "maps_to": "primary" },
+      "data_status_text": { "value": "#4a2c36", "maps_to": "primary" },
+      "tip_text": { "value": "#90a4ae", "maps_to": "text_muted" }
+    }
+  },
+  "spacing": {
+    "xs": "4px",
+    "sm": "8px",
+    "md": "16px",
+    "lg": "24px",
+    "xl": "32px",
+    "2xl": "48px"
+  },
+  "radius": {
+    "sm": "4px",
+    "md": "8px",
+    "lg": "12px",
+    "xl": "16px",
+    "round": "9999px"
+  },
+  "typography": {
+    "font_family_main": "AlibabaHealthFont2, sans-serif",
+    "font_family_header": "fzrzFont, sans-serif",
+    "sizes": {
+      "xs": "12px",
+      "sm": "14px",
+      "base": "16px",
+      "lg": "18px",
+      "xl": "24px",
+      "2xl": "32px",
+      "3xl": "48px"
+    }
+  },
+  "shadows": {
+    "sm": "0 2px 4px rgba(0,0,0,0.05)",
+    "md": "0 4px 8px rgba(0,0,0,0.1)",
+    "lg": "0 10px 30px rgba(0,0,0,0.15)"
+  }
+}

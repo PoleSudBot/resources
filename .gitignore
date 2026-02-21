@@ -1,0 +1,31 @@
+
+# 1. Bot 运行产生的临时与缓存文件
+# 对应 path_config.py 中的 TEMP_PATH 和 UI_CACHE_PATH
+temp/
+ui_cache/
+
+# 2. 系统生成文件 (macOS, Windows, Linux)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# 3. 常见 IDE 与编辑器配置
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# 4. 压缩包与无关媒体 (防止你在本地打包或解压时误提交)
+*.zip
+*.tar.gz
+*.rar
+*.7z
+
+# 5. 潜在的日志文件 (如有)
+*.log
