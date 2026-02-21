@@ -1,0 +1,90 @@
+{% extends 'partials/_base.html' %}
+{% import "macros/icons.jinja" as icons %}
+{% import "macros/svg_patterns.jinja" as patterns %}
+
+{% block title %}PoleSudBot Help Menu{% endblock %}
+
+{% block page_styles %}
+<style>
+    {
+        % include './style.css' %
+    }
+</style>
+{% endblock %}
+
+{% block body_content %}
+
+<div class="wrapper">
+
+    <div class="header">
+        
+        <div class="header-title-large">
+            PoleSudBot
+        </div>
+
+        <div class="header-stats">
+            <div class="stat-box">
+                <span class="stat-num">{{ data.plugin_count }}</span>
+                <span class="stat-label">总功能</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-num">{{ data.active_count }}</span>
+                <span class="stat-label">可用</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-num" style="font-size: 20px; line-height: 42px;">{{ data.bot_name }}</span>
+                <span class="stat-label">System</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="tips-section">
+        <!-- 1. Chinese tips 2. Removed detailed help 3. Admin help kept -->
+        <div class="tip-pill primary-tip">
+            <span class="tip-icon">📌</span> 发送 "帮助 [功能名]" 查看详情
+        </div>
+        <div class="tip-pill admin-tip">
+            <span class="tip-icon">👑</span> 管理员请发送 "管理员帮助"
+        </div>
+    </div>
+
+    <div class="masonry-container">
+        <!-- Removed color cycling logic. All categories use default styling. -->
+
+        {% for category in data.categories %}
+        <div class="category-card">
+        <div class="cat-header">
+            <div class="cat-title">{{ category.name }}</div>
+            <!-- <div class="cat-count">{{ category.items | length }}</div> -->
+        </div>
+
+        <div class="plugin-list">
+            {% if category.items | length == 0 %}
+            <div class="empty-msg">暂无功能</div>
+            {% else %}
+            {% for item in category.items %}
+            <!-- Removed 'disabled' class logic for visual clarity if needed, or keep it subtle -->
+            <div class="plugin-item {% if not item.status %}disabled{% endif %}">
+                <!-- Restored ID for user legibility -->
+                <span class="p-id">{{ item.id }}</span>
+
+                <div class="p-content">
+                    <div class="p-name">{{ item.name }}</div>
+                </div>
+
+                <div class="badges">
+                    {% if item.has_superuser_help %}
+                    <span class="badge super">S</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    {% include 'partials/_footer.html' %}
+</div>
+{% endblock %}

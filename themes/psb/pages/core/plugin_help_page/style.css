@@ -1,0 +1,122 @@
+body {
+    margin: 0;
+    padding: 20px;
+    background-color: var(--color-background-card);
+    font-family: 'AlibabaHealthFont2', sans-serif;
+}
+.container {
+    background-color: var(--color-background-main);
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    max-width: 1600px;
+    margin: 0 auto;
+    border: 1px solid var(--color-border-light);
+}
+.header {
+    background: linear-gradient(to right, var(--color-primary), var(--color-primary-dark));
+    color: var(--color-text-light);
+    padding: 30px 20px;
+    text-align: center;
+}
+.header h1 {
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+}
+.header p {
+    margin: 8px 0 0;
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+
+.content {
+    padding: 30px;
+    column-count: 2;
+    column-gap: 30px;
+}
+
+.category-header {
+    column-span: all;
+    display: flex;
+    align-items: center;
+    background-color: var(--color-background-card);
+    padding: 12px 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: var(--color-primary-dark);
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 12px;
+    border: 1px solid var(--color-border-light);
+}
+
+.category-header:first-of-type {
+    margin-top: 0;
+}
+
+.category-header svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 12px;
+    fill: currentColor;
+}
+
+.item-card {
+    background-color: var(--color-background-main);
+    border-radius: 12px;
+    border: 1px solid var(--color-border-light);
+    padding: 20px;
+    margin-bottom: 20px;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.item-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+
+.item-card h4 {
+    font-size: 17px;
+    color: var(--color-primary-dark);
+    margin: 0 0 10px 0;
+    font-weight: 600;
+}
+.item-card p {
+    font-size: 14px;
+    color: var(--color-text-dark);
+    line-height: 1.6;
+    margin: 0 0 12px 0;
+}
+.usage {
+    /* Updated to use new grey palette variables */
+    background-color: var(--color-plugin-help-page-usage-bg);
+    color: var(--color-plugin-help-page-usage-text);
+    padding: 12px 15px;
+    border-radius: 8px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    border: 1px solid var(--color-plugin-help-page-usage-border);
+}
+
+.usage pre {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+
+.usage.markdown-content,
+.usage.markdown-content p,
+.usage.markdown-content li {
+    color: inherit;
+}
