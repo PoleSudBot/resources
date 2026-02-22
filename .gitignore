@@ -29,3 +29,6 @@ desktop.ini
 
 # 5. 潜在的日志文件 (如有)
 *.log
+
+# 6. 缓存资源文件夹
+image/sign/today_card/
