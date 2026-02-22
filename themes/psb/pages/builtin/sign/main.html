@@ -1,0 +1,132 @@
+{% extends 'partials/_base.html' %}
+
+{% block title %}签到卡片{% endblock %}
+
+{% block page_styles %}
+<style>
+    {
+        % include './style.css' %
+    }
+</style>
+{% endblock %}
+
+{% block body_content %}
+<div class="wrapper">
+    <div class="profile-card">
+        <!-- Top Banner / User Info -->
+        <div class="profile-header">
+            <div class="avatar-container">
+                <img class="avatar-img" src="{{data.user.avatar_url}}" alt="Avatar">
+            </div>
+            <div class="user-details">
+                <div class="nickname-box">
+                    <p class="nickname" style="font-size: min({{ data.user.font_size }}px, 32px);">
+                        {{data.user.nickname}}</p>
+                </div>
+                <div class="uid-box">
+                    <p class="uid">UID: {{data.user.uid_str}}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="sign-summary">
+            <div class="summary-badge">累计签到 {{data.user.sign_count}} 天</div>
+            <p class="bot-message">{{data.bot_message}}</p>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Middle Section: Today's Sign Data -->
+        <div class="data-section">
+            <h2 class="section-title">
+                <span class="icon">🎁</span>
+                {% if not data.is_card_view and data.reward %}
+                今日签到奖励
+                {% else %}
+                我的信息摘要
+                {% endif %}
+            </h2>
+
+            <div class="stats-grid">
+                {% if not data.is_card_view and data.reward %}
+                <div class="stat-card">
+                    <div class="stat-icon">💝</div>
+                    <div class="stat-info">
+                        <div class="stat-value">+{{ "%.2f"|format(data.reward.impression_added) }}{% if
+                            data.reward.is_double %} <span class="badge double">×2</span>{% endif %}</div>
+                        <div class="stat-label">好感度增加</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <div class="stat-value">+{{data.reward.gold_added}}</div>
+                        <div class="stat-label">金币获取</div>
+                    </div>
+                </div>
+
+                <div class="stat-card full-width">
+                    <div class="stat-icon gift-icon">📦</div>
+                    <div class="stat-info">
+                        <div class="stat-value highlight">{{data.reward.gift_received}}</div>
+                        <div class="stat-label">获得道具</div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-info">
+                        <div class="stat-value">第 {{ data.rank }} 位</div>
+                        <div class="stat-label">好感度排名</div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon">💰</div>
+                    <div class="stat-info">
+                        <div class="stat-value">{{ data.total_gold }}</div>
+                        <div class="stat-label">总金币数</div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Bottom Section: Favorability -->
+        <div class="favorability-section">
+            <div class="fav-header">
+                <div>
+                    <h3 class="fav-title">好感度等级: <span>{{data.favorability.level_text}}</span></h3>
+                    <p class="fav-current">当前好感度: {{ "%.2f"|format(data.favorability.current) }}</p>
+                </div>
+                <div class="hearts-display">
+                    {% for i in data.favorability.heart2 %}
+                    <span class="heart full">❤️</span>
+                    {% endfor %}
+                    {% for i in data.favorability.heart1 %}
+                    <span class="heart empty">🤍</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <p class="fav-attitude">{{data.attitude}}</p>
+
+            <div class="progress-container">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" style="width: {{data.progress}}%;"></div>
+                </div>
+                <p class="progress-hint">距离下一等级还需 <strong>{{data.interpolation}}</strong> 点</p>
+            </div>
+        </div>
+
+        <div class="footer-date">
+            <span class="date-icon">📅</span> {{data.page.date_str}}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

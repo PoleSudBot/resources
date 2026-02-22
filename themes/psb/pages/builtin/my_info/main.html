@@ -1,0 +1,201 @@
+{% extends 'partials/_base.html' %}
+
+{% block title %}用户信息卡片{% endblock %}
+
+{% block page_scripts %}
+{{ super() }}
+<script src="{{ asset('js/echarts.min.js') }}"></script>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('chart'));
+
+    // Dynamically get theme colors to avoid hardcoding in the template
+    var primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#FF6699';
+    var textColor = getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim() || '#4a2c36';
+    var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--color-bg-card').trim() || '#fff5f8';
+
+    var option = {
+        backgroundColor: "transparent",
+        animation: false,
+        grid: {
+            top: 40,
+            bottom: 30,
+            left: 50,
+            right: 30
+        },
+        xAxis: {
+            type: "category",
+            data: {{ data.chart.labels| dump_json | safe}},
+    axisLabel: { color: textColor, fontSize: 16 },
+    axisLine: { lineStyle: { color: primaryColor } }
+            },
+    yAxis: {
+        type: "value",
+            axisLabel: { color: textColor, fontSize: 16 },
+        splitLine: { lineStyle: { color: 'rgba(255, 102, 153, 0.2)' } }
+    },
+    series: [{
+        data: {{ data.chart.data | dump_json | safe }},
+        type: "line",
+        smooth: true,
+        lineStyle: { color: primaryColor, width: 3 },
+        symbolSize: 8,
+        itemStyle: { color: primaryColor },
+        areaStyle: {
+        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+            { offset: 0, color: 'rgba(255, 102, 153, 0.5)' },
+            { offset: 1, color: 'rgba(255, 102, 153, 0.0)' }
+        ])
+    },
+        label: {
+        normal: {
+            show: true,
+            position: 'top',
+            textStyle: { fontSize: 16, color: primaryColor, fontWeight: 'bold' }
+        }
+    }
+            }],
+        };
+    myChart.setOption(option);
+</script>
+{% endblock %}
+
+{% block page_styles %}
+<style>
+    {
+        % include './style.css' %
+    }
+</style>
+{% endblock %}
+
+{% block body_content %}
+<div class="wrapper dashboard">
+    <!-- Top Header -->
+    <div class="dashboard-header">
+        <div class="user-profile">
+            <div class="avatar-ring">
+                <img src="{{data.info.avatar_url}}" alt="avatar" class="avatar-img" />
+            </div>
+            <div class="user-titles">
+                <h1 class="nickname">{{data.info.nickname}} <span class="badge">{{data.info.title}}</span></h1>
+                <p class="uid">UID: {{data.info.uid}}</p>
+            </div>
+        </div>
+        <div class="header-meta">
+            <div class="date-box">
+                <span class="icon">📅</span> {{ data.page.date }}
+            </div>
+            <div class="weather-box">
+                <img src="{{ asset('./img/' + data.page.weather_icon_name + '.png') }}" alt="weather"
+                    class="weather-icon" />
+                <span>{{ data.page.temperature }}℃</span>
+            </div>
+            <div class="permission-box">
+                <span class="icon">🛡️</span> 权限等级: {{data.permission_level}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Grid Content -->
+    <div class="dashboard-grid">
+
+        <!-- Left Column: Character Info & Description -->
+        <div class="grid-col left-col">
+            <div class="card character-info">
+                <h2 class="card-title">基本信息</h2>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">种族</span>
+                        <span class="info-value">{{data.info.race}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">性别</span>
+                        <span class="info-value">{{data.info.sex}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">职业</span>
+                        <span class="info-value">{{data.info.occupation}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card description">
+                <h2 class="card-title">个人简介</h2>
+                <div class="desc-content">{{data.info.description}}</div>
+            </div>
+
+            <!-- Menus / Actions -->
+            <div class="card menu-card">
+                <h2 class="card-title">快捷菜单</h2>
+                <div class="menu-grid">
+                    <div class="menu-btn primary">我的信息</div>
+                    <div class="menu-btn secondary">我的道具</div>
+                    <div class="menu-btn secondary">我的卡组</div>
+                    <div class="menu-btn secondary">我的设置</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Stats & Charts -->
+        <div class="grid-col right-col">
+            <!-- Favorability Banner -->
+            <div class="card favorability-banner">
+                <div class="fav-title-row">
+                    <h2 class="card-title">当前好感状态</h2>
+                    <span class="fav-level-badge">LV.{{data.favorability.level}}</span>
+                </div>
+                <div class="fav-stages">
+                    <span class="stage {% if data.favorability.selected_indices[0] %}active{% endif %}">路人</span>
+                    <span class="stage {% if data.favorability.selected_indices[1] %}active{% endif %}">陌生</span>
+                    <span class="stage {% if data.favorability.selected_indices[2] %}active{% endif %}">初识</span>
+                    <span class="stage {% if data.favorability.selected_indices[3] %}active{% endif %}">普通</span>
+                    <span class="stage {% if data.favorability.selected_indices[4] %}active{% endif %}">熟悉</span>
+                    <span class="stage {% if data.favorability.selected_indices[5] %}active{% endif %}">信赖</span>
+                    <span class="stage {% if data.favorability.selected_indices[6] %}active{% endif %}">相知</span>
+                    <span class="stage {% if data.favorability.selected_indices[7] %}active{% endif %}">厚谊</span>
+                    <span class="stage {% if data.favorability.selected_indices[8] %}active{% endif %}">亲密</span>
+                </div>
+            </div>
+
+            <!-- Core Stats Grid -->
+            <div class="stats-cards">
+                <div class="stat-box">
+                    <div class="stat-icon gold">💰</div>
+                    <div class="stat-details">
+                        <div class="stat-value">{{data.stats.gold}}</div>
+                        <div class="stat-name">金币数量</div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon prop">🎒</div>
+                    <div class="stat-details">
+                        <div class="stat-value">{{data.stats.prop_count}}</div>
+                        <div class="stat-name">道具数量</div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon call">⚡</div>
+                    <div class="stat-details">
+                        <div class="stat-value">{{data.stats.call_count}}</div>
+                        <div class="stat-name">调用次数</div>
+                    </div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon chat">💬</div>
+                    <div class="stat-details">
+                        <div class="stat-value">{{data.stats.chat_count}}</div>
+                        <div class="stat-name">发言统计</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Card -->
+            <div class="card chart-card">
+                <h2 class="card-title"><span class="icon">📈</span> 近期发言趋势</h2>
+                <div id="chart" class="chart-container"></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

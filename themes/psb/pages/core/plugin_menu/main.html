@@ -16,8 +16,10 @@
 
 <div class="wrapper">
 
-    <div class="header">
-        
+    {% set banner_img = random_asset('themes/psb/assets/banners') %}
+
+    <div class="header" {% if banner_img %}style="background-image: url('{{ banner_img }}');" {% endif %}>
+
         <div class="header-title-large">
             PoleSudBot
         </div>
@@ -41,7 +43,7 @@
     <div class="tips-section">
         <!-- 1. Chinese tips 2. Removed detailed help 3. Admin help kept -->
         <div class="tip-pill primary-tip">
-            <span class="tip-icon">📌</span> 发送 "帮助 [功能名]" 查看详情
+            <span class="tip-icon">📌</span> 发送 "帮助 [序列号/功能名]" 查看详情
         </div>
         <div class="tip-pill admin-tip">
             <span class="tip-icon">👑</span> 管理员请发送 "管理员帮助"
@@ -53,38 +55,38 @@
 
         {% for category in data.categories %}
         <div class="category-card">
-        <div class="cat-header">
-            <div class="cat-title">{{ category.name }}</div>
-            <!-- <div class="cat-count">{{ category.items | length }}</div> -->
-        </div>
-
-        <div class="plugin-list">
-            {% if category.items | length == 0 %}
-            <div class="empty-msg">暂无功能</div>
-            {% else %}
-            {% for item in category.items %}
-            <!-- Removed 'disabled' class logic for visual clarity if needed, or keep it subtle -->
-            <div class="plugin-item {% if not item.status %}disabled{% endif %}">
-                <!-- Restored ID for user legibility -->
-                <span class="p-id">{{ item.id }}</span>
-
-                <div class="p-content">
-                    <div class="p-name">{{ item.name }}</div>
-                </div>
-
-                <div class="badges">
-                    {% if item.has_superuser_help %}
-                    <span class="badge super">S</span>
-                    {% endif %}
-                </div>
+            <div class="cat-header">
+                <div class="cat-title">{{ category.name }}</div>
+                <!-- <div class="cat-count">{{ category.items | length }}</div> -->
             </div>
-            {% endfor %}
-            {% endif %}
-        </div>
+
+            <div class="plugin-list">
+                {% if category.items | length == 0 %}
+                <div class="empty-msg">暂无功能</div>
+                {% else %}
+                {% for item in category.items %}
+                <!-- Removed 'disabled' class logic for visual clarity if needed, or keep it subtle -->
+                <div class="plugin-item {% if not item.status %}disabled{% endif %}">
+                    <!-- Restored ID for user legibility -->
+                    <span class="p-id">{{ item.id }}</span>
+
+                    <div class="p-content">
+                        <div class="p-name">{{ item.name }}</div>
+                    </div>
+
+                    <div class="badges">
+                        {% if item.has_superuser_help %}
+                        <span class="badge super">S</span>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
         </div>
         {% endfor %}
     </div>
-    
+
     {% include 'partials/_footer.html' %}
 </div>
 {% endblock %}
