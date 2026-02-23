@@ -1,0 +1,10 @@
+{
+  "name": "签到卡片",
+  "entrypoint": "main.html",
+  "render_options": {
+    "viewport": {
+      "width": 540,
+      "height": 10
+    }
+  }
+}
