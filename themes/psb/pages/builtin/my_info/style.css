@@ -11,17 +11,19 @@
 
 body {
     margin: 0;
-    padding: 30px;
+    padding: 0;
     background-color: transparent;
     font-family: "AlibabaHealthFont2", "Microsoft YaHei", sans-serif;
 }
 
 .wrapper.dashboard {
     width: 960px;
-    margin: 0 auto;
+    margin: 0;
     /* Reduced from 1754px for a nice reasonably sized dashboard */
     background-color: var(--color-bg-page);
     border-radius: 32px;
+    overflow: hidden;
+    /* Fix: Enforce bottom rounded corners */
     box-shadow: 0 25px 50px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     padding: 40px;
     color: var(--color-text-dark);
