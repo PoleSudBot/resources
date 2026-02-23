@@ -10,7 +10,7 @@
 
 body {
   margin: 0;
-  padding: 20px;
+  padding: 0;
   background-color: transparent;
   font-family: "AlibabaHealthFont2", "Microsoft YaHei", sans-serif;
 }
@@ -19,7 +19,7 @@ body {
   width: 500px;
   /* Auto height based on content */
   background-color: transparent;
-  margin: 0 auto;
+  margin: 0;
   box-sizing: border-box;
 }
 

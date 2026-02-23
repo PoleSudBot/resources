@@ -10,7 +10,7 @@
 
 body {
   margin: 0;
-  padding: 20px;
+  padding: 0;
   font-family: "AlibabaHealthFont2", sans-serif;
   background-color: transparent;
 }
@@ -24,7 +24,7 @@ body {
     0 0 0 1px rgba(0, 0, 0, 0.02);
   overflow: hidden;
   position: relative;
-  margin: 0 auto;
+  margin: 0;
   box-sizing: border-box;
 }
 
