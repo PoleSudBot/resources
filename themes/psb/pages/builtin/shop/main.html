@@ -1,0 +1,92 @@
+{% extends 'partials/_base.html' %}
+
+{% block title %}商店{% endblock %}
+
+{% block page_styles %}
+<style>
+    {
+        % include './style.css' %
+    }
+</style>
+{% endblock %}
+
+{% block body_content %}
+<div class="wrapper shop-wrapper">
+
+    <!-- Header Section -->
+    <div class="shop-header">
+        <div class="shop-title-box">
+            <span class="shop-title">{{ data.bot_nickname }} 的神秘商店</span>
+        </div>
+        <div class="shop-subtitle">使用 "购买道具 [编号/名称]" 购买道具</div>
+    </div>
+
+    <!-- Categories and Items -->
+    <div class="shop-content">
+        {% for category in data.categories %}
+        <div class="category-section">
+
+            <div class="category-header">
+                <span class="category-title">{{ category.partition_title }}</span>
+            </div>
+
+            <div class="goods-grid">
+                {% for goods in category.goods_list %}
+                <div class="goods-card">
+
+                    <!-- Goods ID Badge -->
+                    <div class="goods-badge">
+                        <span class="badge-text">#{{ goods.id }}</span>
+                    </div>
+
+                    <!-- Goods Content -->
+                    <div class="goods-info-container">
+
+                        <!-- Icon -->
+                        <div class="goods-icon-box">
+                            {% if goods.limit_time %}
+                            <div class="goods-limit-tag">限时: {{ goods.limit_time }}</div>
+                            {% endif %}
+                            {% if goods.icon_url %}
+                            <img src="{{ goods.icon_url }}" class="goods-icon" />
+                            {% else %}
+                            <div class="goods-icon-placeholder">🎮</div>
+                            {% endif %}
+                        </div>
+
+                        <!-- Details -->
+                        <div class="goods-details">
+                            <div class="goods-name">{{ goods.name }}</div>
+                            <div class="goods-desc">{{ goods.description }}</div>
+
+                            <div class="goods-purchase-info">
+                                <div class="goods-price">
+                                    {% if goods.discount_price is none %}
+                                    <span class="price-val">{{ goods.price }}</span>
+                                    <span class="price-unit">金币</span>
+                                    {% else %}
+                                    <div class="discount-container">
+                                        <span class="price-orig">{{ goods.price }}</span>
+                                        <span class="price-val discount">{{ goods.discount_price }}</span>
+                                        <span class="price-unit">金币</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="goods-limit">
+                                    限购: <strong>{{ goods.daily_limit }}</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}
