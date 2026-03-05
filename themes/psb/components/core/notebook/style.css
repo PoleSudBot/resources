@@ -100,8 +100,9 @@
   max-width: 100%;
   height: auto;
   border-radius: 8px;
-  border: 1px solid #f8d0d6;
-  box-shadow: 0 4px 12px rgba(247, 123, 142, 0.15);
+  /* Removed pink border and shadow for a cleaner, modern look */
+  border: none;
+  box-shadow: none;
 }
 
 .notebook-image-caption {
@@ -147,7 +148,60 @@
 /* 分隔线 */
 .notebook-divider {
   height: 1px;
-  background: linear-gradient(to right, transparent, #f7889c, transparent);
-  margin: 2em 0;
+  /* Replaced old gradient with a clean, subtle solid line */
+  background: #F0F0F0;
+  margin: 1.5em 0;
   border: none;
+}
+
+/* Bilibili Video Update Custom Styles - Minimalist Design */
+.bilibili-video-info {
+  background: white;
+  border: none;
+  padding: 5px 10px;
+  margin: 0;
+  box-shadow: none;
+}
+
+.video-title-container {
+  font-size: 1.7em; /* Increased size */
+  font-weight: 600;
+  color: #333;
+  margin-top: 5px; 
+  margin-bottom: 8px; 
+  line-height: 1.4;
+}
+
+.video-meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.05em; /* Increased size */
+  color: #999;
+  margin-bottom: 8px; 
+}
+
+.video-description {
+  position: relative;
+  font-size: 1.15em; /* Increased size */
+  color: #666;
+  line-height: 1.5;
+  background: #FFF0F5; /* Very light pink background */
+  padding: 12px 15px;
+  border-radius: 8px; /* Rounder corners */
+  margin-top: 8px;
+  margin-bottom: 0px; /* Reduced bottom space */
+}
+
+/* Rounder, cuter accent line on the left */
+.video-description::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 60%; /* Doesn't span full height, feels more like a badge */
+  background: #FF6699; /* Main theme color */
+  border-radius: 4px; /* Pill shape */
 }
