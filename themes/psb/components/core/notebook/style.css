@@ -149,7 +149,7 @@
 .notebook-divider {
   height: 1px;
   /* Replaced old gradient with a clean, subtle solid line */
-  background: #F0F0F0;
+  background: #f0f0f0;
   margin: 1.5em 0;
   border: none;
 }
@@ -167,8 +167,8 @@
   font-size: 1.7em; /* Increased size */
   font-weight: 600;
   color: #333;
-  margin-top: 5px; 
-  margin-bottom: 8px; 
+  margin-top: 5px;
+  margin-bottom: 8px;
   line-height: 1.4;
 }
 
@@ -178,7 +178,7 @@
   align-items: center;
   font-size: 1.05em; /* Increased size */
   color: #999;
-  margin-bottom: 8px; 
+  margin-bottom: 8px;
 }
 
 .video-description {
@@ -186,22 +186,9 @@
   font-size: 1.15em; /* Increased size */
   color: #666;
   line-height: 1.5;
-  background: #FFF0F5; /* Very light pink background */
+  background: #fff0f5; /* Very light pink background */
   padding: 12px 15px;
   border-radius: 8px; /* Rounder corners */
   margin-top: 8px;
   margin-bottom: 0px; /* Reduced bottom space */
-}
-
-/* Rounder, cuter accent line on the left */
-.video-description::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 5px;
-  height: 60%; /* Doesn't span full height, feels more like a badge */
-  background: #FF6699; /* Main theme color */
-  border-radius: 4px; /* Pill shape */
 }
