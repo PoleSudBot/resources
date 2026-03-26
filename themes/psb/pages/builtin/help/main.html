@@ -1,20 +1,16 @@
 {% extends 'partials/_base.html' %}
 {% import "macros/icons.jinja" as icons %}
-{% import "macros/borders.jinja" as borders %}
-{% import "macros/svg_patterns.jinja" as patterns %}
-{% import "macros/visuals.jinja" as visuals %}
 
 {% block title %}{{ data.title }}{% endblock %}
 
 {% block page_styles %}
+<style>
+    {% include './style.css' %}
+</style>
 {% endblock %}
 
 {% block body_content %}
 <div class="wrapper">
-    <!-- Removed blob backgrounds for cleaner look -->
-    <!-- <div class="bg-blob blob-1"></div> -->
-    <!-- <div class="bg-blob blob-2"></div> -->
-
     <div class="app-header">
         <h1 class="app-title">{{ data.title }}</h1>
     </div>
@@ -44,43 +40,43 @@
     </div>
     {% endif %}
 
-    {% for section in data.sections %}
-    {% if loop.index == 1 %}
-    <div class="info-box intro-glass">
-        <div class="intro-icon">
-            {{ icons.info(size=24) }}
-        </div>
-        <div class="intro-content-wrapper">
-            <div class="intro-title-simple">{{ section.title }}</div>
-            <div class="section-content intro-text">
+    <div class="sections-container">
+        {% for section in data.sections %}
+        <div class="help-card {% if loop.first %}lead-card{% endif %}">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <span class="title-icon">
+                        {% if '简介' in section.title %}
+                        {{ icons.file_text(size=20) }}
+                        {% elif '管理员' in section.title %}
+                        {{ icons.shield_check(size=20) }}
+                        {% elif '超级用户' in section.title %}
+                        {{ icons.wand(size=20) }}
+                        {% else %}
+                        {{ icons.info(size=20) }}
+                        {% endif %}
+                    </span>
+                    <span class="title-text">{{ section.title }}</span>
+                    <span class="section-subtitle">
+                        {% if '管理员' in section.title %}
+                        ADMIN
+                        {% elif '超级用户' in section.title %}
+                        ROOT
+                        {% elif '简介' in section.title %}
+                        GUIDE
+                        {% endif %}
+                    </span>
+                </h2>
+            </div>
+
+            <div class="section-content">
                 {% for line in section.content %}
                 <div class="markdown-content">{{ line | md | safe }}</div>
                 {% endfor %}
             </div>
         </div>
-    </div>
-    {% elif loop.index == 2 %}
-    {% call borders.tech_box(class="info-box") %}
-    <h2 class="section-title">{{ section.title }}</h2>
-    <div class="section-content">
-        {% for line in section.content %}
-        <div class="markdown-content">{{ line | md | safe }}</div>
         {% endfor %}
     </div>
-    <!-- Removed random footer image logic -->
-    {% endcall %}
-    {% else %}
-    <div class="info-box">
-        <h2 class="section-title">{{ section.title }}</h2>
-        <div class="section-content">
-            {% for line in section.content %}
-            <div class="markdown-content">{{ line | md | safe }}</div>
-            {% endfor %}
-        </div>
-    </div>
-    {% endif %}
-    {% if not loop.last %}<div class="divider"></div>{% endif %}
-    {% endfor %}
 
     <div class="divider"></div>
     {% include 'partials/_footer.html' %}
@@ -88,26 +84,4 @@
 {% endblock %}
 
 {% block footer %}
-{% endblock %}
-
-{% block page_scripts %}
-<script>
-    window.addEventListener('load', function () {
-        const boxes = document.querySelectorAll('.info-box');
-
-        boxes.forEach(function (box) {
-            const decoImg = box.querySelector('.info-box-deco');
-            const contentDiv = box.querySelector('.section-content');
-
-            if (decoImg && contentDiv) {
-                const contentHeight = contentDiv.offsetHeight;
-
-                const limit = contentHeight * 0.7;
-
-                decoImg.style.maxHeight = limit + 'px';
-                decoImg.style.width = 'auto';
-            }
-        });
-    });
-</script>
 {% endblock %}

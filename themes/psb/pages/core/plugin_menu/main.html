@@ -43,7 +43,7 @@
     <div class="tips-section">
         <!-- 1. Chinese tips 2. Removed detailed help 3. Admin help kept -->
         <div class="tip-pill primary-tip">
-            <span class="tip-icon">📌</span> 发送 "帮助 [序列号/功能名]" 查看详情
+            <span class="tip-icon">📌</span> 发送 "帮助 [功能名/ID]" 查看详情
         </div>
         <div class="tip-pill admin-tip">
             <span class="tip-icon">👑</span> 管理员请发送 "管理员帮助"
@@ -51,13 +51,10 @@
     </div>
 
     <div class="masonry-container">
-        <!-- Removed color cycling logic. All categories use default styling. -->
-
         {% for category in data.categories %}
         <div class="category-card">
             <div class="cat-header">
                 <div class="cat-title">{{ category.name }}</div>
-                <!-- <div class="cat-count">{{ category.items | length }}</div> -->
             </div>
 
             <div class="plugin-list">
@@ -65,9 +62,8 @@
                 <div class="empty-msg">暂无功能</div>
                 {% else %}
                 {% for item in category.items %}
-                <!-- Removed 'disabled' class logic for visual clarity if needed, or keep it subtle -->
-                <div class="plugin-item {% if not item.status %}disabled{% endif %}">
-                    <!-- Restored ID for user legibility -->
+                {% set item_status = item.status | default(0) %}
+                <div class="plugin-item {% if item_status != 0 %}disabled{% endif %}">
                     <span class="p-id">{{ item.id }}</span>
 
                     <div class="p-content">
@@ -75,6 +71,13 @@
                     </div>
 
                     <div class="badges">
+                        {% if item_status == 3 %}
+                        <span class="badge status-global" title="全局关闭">全关</span>
+                        {% elif item_status == 2 %}
+                        <span class="badge status-su" title="系统锁定">锁定</span>
+                        {% elif item_status == 1 %}
+                        <span class="badge status-group" title="群内关闭">群关</span>
+                        {% endif %}
                         {% if item.has_superuser_help %}
                         <span class="badge super">S</span>
                         {% endif %}

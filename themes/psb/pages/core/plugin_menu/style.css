@@ -264,9 +264,8 @@ body {
 }
 
 .plugin-item.disabled {
-  opacity: 0.5;
-  background: #f8fafc;
-  filter: grayscale(1);
+  background: #fff8fb;
+  border-style: dashed;
 }
 
 .p-id {
@@ -304,7 +303,54 @@ body {
 }
 
 .badges {
-  display: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 22px;
+  padding: 0 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 102, 153, 0.18);
+  background: rgba(255, 102, 153, 0.12);
+  color: var(--color-primary-dark);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+.badge.super {
+  min-width: 22px;
+  padding: 0;
+  background: rgba(69, 137, 255, 0.12);
+  border-color: rgba(69, 137, 255, 0.18);
+  color: var(--color-info);
+}
+
+.badge.status-group {
+  background: rgba(255, 167, 38, 0.12);
+  border-color: rgba(255, 167, 38, 0.18);
+  color: var(--color-warning);
+}
+
+.badge.status-su {
+  background: rgba(140, 107, 118, 0.12);
+  border-color: rgba(140, 107, 118, 0.18);
+  color: var(--color-text-muted);
+}
+
+.badge.status-global {
+  background: rgba(239, 83, 80, 0.12);
+  border-color: rgba(239, 83, 80, 0.18);
+  color: var(--color-error);
 }
 
 .plugin-item.disabled .p-name {

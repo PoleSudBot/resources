@@ -13,7 +13,11 @@
     "accent_green": "#66bb6a",
     "accent_red": "#ef5350",
     "accent_warning": "#ffa726",
-    "accent_blue": "#4589ff"
+    "accent_blue": "#4589ff",
+    "success": "#66bb6a",
+    "info": "#4589ff",
+    "error": "#ef5350",
+    "warning": "#ffa726"
   },
   "component_colors": {
     "global": {
