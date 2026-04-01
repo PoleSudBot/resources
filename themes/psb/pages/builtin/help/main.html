@@ -45,27 +45,20 @@
         <div class="help-card {% if loop.first %}lead-card{% endif %}">
             <div class="section-header">
                 <h2 class="section-title">
-                    <span class="title-icon">
-                        {% if '简介' in section.title %}
-                        {{ icons.file_text(size=20) }}
-                        {% elif '管理员' in section.title %}
-                        {{ icons.shield_check(size=20) }}
-                        {% elif '超级用户' in section.title %}
-                        {{ icons.wand(size=20) }}
-                        {% else %}
-                        {{ icons.info(size=20) }}
-                        {% endif %}
-                    </span>
-                    <span class="title-text">{{ section.title }}</span>
-                    <span class="section-subtitle">
-                        {% if '管理员' in section.title %}
-                        ADMIN
-                        {% elif '超级用户' in section.title %}
-                        ROOT
-                        {% elif '简介' in section.title %}
-                        GUIDE
-                        {% endif %}
-                    </span>
+                    {% set display_title = section.title %}
+                    {% set subtitle = "" %}
+                    {% if '简介' in section.title %}
+                        {% set subtitle = "GUIDE" %}
+                    {% elif '管理员' in section.title and not section.is_admin %}
+                        {% set display_title = "使用指令" %}
+                        {% set subtitle = "COMMANDS" %}
+                    {% elif '管理员' in section.title %}
+                        {% set subtitle = "ADMIN" %}
+                    {% elif '超级用户' in section.title %}
+                        {% set subtitle = "ROOT" %}
+                    {% endif %}
+                    <span class="title-text">{{ display_title }}</span>
+                    <span class="section-subtitle">{{ subtitle }}</span>
                 </h2>
             </div>
 
