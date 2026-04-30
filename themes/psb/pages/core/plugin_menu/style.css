@@ -31,7 +31,7 @@ body {
 .header {
   /* Changed from gradient to Miku image/color mode */
   background-color: var(--color-primary);
-  background-image: url("{{ asset('./img/banner.webp') }}");
+  background-image: url("{{ asset('banners/banner.webp') }}");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
