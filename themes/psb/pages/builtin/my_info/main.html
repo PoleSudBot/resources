@@ -2,196 +2,296 @@
 
 {% block title %}用户信息卡片{% endblock %}
 
+{% macro icon_tile(name) -%}
+<span class="icon-tile" aria-hidden="true">
+    <svg class="icon-svg" viewBox="0 0 24 24">
+        {% if name == "shield-check" %}
+        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z" />
+        <path d="m9 12 2 2 4-4" />
+        {% elif name == "calendar-days" %}
+        <path d="M8 2v4" />
+        <path d="M16 2v4" />
+        <rect width="18" height="18" x="3" y="4" rx="2" />
+        <path d="M3 10h18" />
+        <path d="M8 14h.01" />
+        <path d="M12 14h.01" />
+        <path d="M16 14h.01" />
+        <path d="M8 18h.01" />
+        <path d="M12 18h.01" />
+        <path d="M16 18h.01" />
+        {% elif name == "heart" %}
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+        {% elif name == "coins" %}
+        <circle cx="8" cy="8" r="6" />
+        <path d="M18.09 10.37A6 6 0 1 1 10.34 18" />
+        <path d="M7 6h1v4" />
+        <path d="m16.71 13.88.7.71-2.82 2.82" />
+        {% elif name == "message-circle-more" %}
+        <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />
+        <path d="M8 12h.01" />
+        <path d="M12 12h.01" />
+        <path d="M16 12h.01" />
+        {% elif name == "audio-lines" %}
+        <path d="M2 10v3" />
+        <path d="M6 6v11" />
+        <path d="M10 3v18" />
+        <path d="M14 8v7" />
+        <path d="M18 5v13" />
+        <path d="M22 10v3" />
+        {% elif name == "chart-column" %}
+        <path d="M5 21v-6" />
+        <path d="M12 21V9" />
+        <path d="M19 21V3" />
+        {% endif %}
+    </svg>
+</span>
+{%- endmacro %}
+
 {% block page_scripts %}
 {{ super() }}
 <script src="{{ asset('js/echarts.min.js') }}"></script>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('chart'));
+    const chartDom = document.getElementById("activity-chart");
+    if (chartDom) {
+        const chart = echarts.init(chartDom);
+        const rootStyle = getComputedStyle(document.documentElement);
+        const chatColor = rootStyle.getPropertyValue("--color-primary-dark").trim() || "#D14775";
+        const callColor = "#E7799A";
+        const mutedColor = rootStyle.getPropertyValue("--color-text-muted").trim() || "#8c6b76";
+        const borderColor = rootStyle.getPropertyValue("--color-border").trim() || "#ffe0ea";
 
-    // Dynamically get theme colors to avoid hardcoding in the template
-    var primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--color-primary').trim() || '#FF6699';
-    var textColor = getComputedStyle(document.documentElement).getPropertyValue('--color-text-dark').trim() || '#4a2c36';
-    var bgColor = getComputedStyle(document.documentElement).getPropertyValue('--color-bg-card').trim() || '#fff5f8';
-
-    var option = {
-        backgroundColor: "transparent",
-        animation: false,
-        grid: {
-            top: 40,
-            bottom: 30,
-            left: 50,
-            right: 30
-        },
-        xAxis: {
-            type: "category",
-            data: {{ data.chart.labels| dump_json | safe}},
-    axisLabel: { color: textColor, fontSize: 16 },
-    axisLine: { lineStyle: { color: primaryColor } }
+        chart.setOption({
+            backgroundColor: "transparent",
+            animation: false,
+            color: [chatColor, callColor],
+            grid: {
+                top: 46,
+                bottom: 30,
+                left: 46,
+                right: 48
             },
-    yAxis: {
-        type: "value",
-            axisLabel: { color: textColor, fontSize: 16 },
-        splitLine: { lineStyle: { color: 'rgba(255, 102, 153, 0.2)' } }
-    },
-    series: [{
-        data: {{ data.chart.data | dump_json | safe }},
-        type: "line",
-        smooth: true,
-        lineStyle: { color: primaryColor, width: 3 },
-        symbolSize: 8,
-        itemStyle: { color: primaryColor },
-        areaStyle: {
-        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
-            { offset: 0, color: 'rgba(255, 102, 153, 0.5)' },
-            { offset: 1, color: 'rgba(255, 102, 153, 0.0)' }
-        ])
-    },
-        label: {
-        normal: {
-            show: true,
-            position: 'top',
-            textStyle: { fontSize: 16, color: primaryColor, fontWeight: 'bold' }
-        }
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "line",
+                    lineStyle: {
+                        color: borderColor,
+                        width: 1
+                    }
+                }
+            },
+            xAxis: {
+                type: "category",
+                boundaryGap: false,
+                data: {{ data.chart.labels | dump_json | safe }},
+                axisLabel: {
+                    color: mutedColor,
+                    fontSize: 12,
+                    fontWeight: 600
+                },
+                axisTick: { show: false },
+                axisLine: {
+                    lineStyle: {
+                        color: borderColor,
+                        width: 1
+                    }
+                }
+            },
+            yAxis: [
+                {
+                    type: "value",
+                    minInterval: 1,
+                    axisLabel: {
+                        color: chatColor,
+                        fontSize: 12
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: borderColor,
+                            width: 1
+                        }
+                    },
+                    axisTick: { show: false },
+                    splitLine: {
+                        lineStyle: {
+                            color: "rgba(209, 71, 117, 0.12)",
+                            type: "dashed"
+                        }
+                    }
+                },
+                {
+                    type: "value",
+                    minInterval: 1,
+                    axisLabel: {
+                        color: callColor,
+                        fontSize: 12
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: borderColor,
+                            width: 1
+                        }
+                    },
+                    axisTick: { show: false },
+                    splitLine: { show: false }
+                }
+            ],
+            series: [
+                {
+                    name: "发言",
+                    data: {{ data.chart.chat_data | dump_json | safe }},
+                    type: "line",
+                    yAxisIndex: 0,
+                    smooth: true,
+                    symbol: "circle",
+                    symbolSize: 7,
+                    lineStyle: {
+                        color: chatColor,
+                        width: 3
+                    },
+                    itemStyle: {
+                        color: chatColor,
+                        borderColor: "#fff",
+                        borderWidth: 2
+                    },
+                    areaStyle: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [
+                            { offset: 0, color: "rgba(209, 71, 117, 0.22)" },
+                            { offset: 0.72, color: "rgba(255, 102, 153, 0.08)" },
+                            { offset: 1, color: "rgba(255, 102, 153, 0)" }
+                        ])
+                    }
+                },
+                {
+                    name: "调用",
+                    data: {{ data.chart.call_data | dump_json | safe }},
+                    type: "line",
+                    yAxisIndex: 1,
+                    smooth: true,
+                    symbol: "diamond",
+                    symbolSize: 8,
+                    lineStyle: {
+                        color: callColor,
+                        width: 2.5,
+                        type: "dashed"
+                    },
+                    itemStyle: {
+                        color: callColor,
+                        borderColor: "#fff",
+                        borderWidth: 2
+                    }
+                }
+            ]
+        });
     }
-            }],
-        };
-    myChart.setOption(option);
 </script>
 {% endblock %}
 
 {% block page_styles %}
 <style>
-    {
-        % include './style.css' %
-    }
+    {% include './style.css' %}
 </style>
 {% endblock %}
 
 {% block body_content %}
 <div class="wrapper dashboard">
-    <!-- Top Header -->
-    <div class="dashboard-header">
-        <div class="user-profile">
-            <div class="avatar-ring">
-                <img src="{{data.info.avatar_url}}" alt="avatar" class="avatar-img" />
-            </div>
-            <div class="user-titles">
-                <h1 class="nickname">{{data.info.nickname}} <span class="badge">{{data.info.title}}</span></h1>
-                <p class="uid">UID: {{data.info.uid}}</p>
-            </div>
-        </div>
-        <div class="header-meta">
-            <div class="date-box">
-                <span class="icon">📅</span> {{ data.page.date }}
-            </div>
-            <div class="weather-box">
-                <img src="{{ asset('./img/' + data.page.weather_icon_name + '.png') }}" alt="weather"
-                    class="weather-icon" />
-                <span>{{ data.page.temperature }}℃</span>
-            </div>
-            <div class="permission-box">
-                <span class="icon">🛡️</span> 权限等级: {{data.permission_level}}
-            </div>
-        </div>
-    </div>
-
-    <!-- Main Grid Content -->
     <div class="dashboard-grid">
-
-        <!-- Left Column: Character Info & Description -->
         <div class="grid-col left-col">
-            <div class="card character-info">
-                <h2 class="card-title">基本信息</h2>
-                <div class="info-list">
-                    <div class="info-item">
-                        <span class="info-label">种族</span>
-                        <span class="info-value">{{data.info.race}}</span>
+            <div class="card identity-card">
+                <div class="identity-main">
+                    <div class="avatar-ring">
+                        <img src="{{ data.info.avatar_url }}" alt="avatar" class="avatar-img" />
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">性别</span>
-                        <span class="info-value">{{data.info.sex}}</span>
+                    <div class="user-titles">
+                        <h1 class="nickname">{{ data.info.nickname }}</h1>
+                        <p class="uid">UID: {{ data.info.uid }}</p>
                     </div>
-                    <div class="info-item">
-                        <span class="info-label">职业</span>
-                        <span class="info-value">{{data.info.occupation}}</span>
+                </div>
+                <div class="profile-meta">
+                    <div class="profile-item">
+                        {{ icon_tile("shield-check") }}
+                        <div class="profile-copy">
+                            <span class="profile-label">权限</span>
+                            <span class="profile-value">{{ data.profile.permission_level }}</span>
+                        </div>
+                    </div>
+                    <div class="profile-item">
+                        {{ icon_tile("calendar-days") }}
+                        <div class="profile-copy">
+                            <span class="profile-label">相识</span>
+                            <span class="profile-value">{{ data.profile.acquaintance_days }} 天</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card description">
-                <h2 class="card-title">个人简介</h2>
-                <div class="desc-content">{{data.info.description}}</div>
-            </div>
-
-            <!-- Menus / Actions -->
-            <div class="card menu-card">
-                <h2 class="card-title">快捷菜单</h2>
-                <div class="menu-grid">
-                    <div class="menu-btn primary">我的信息</div>
-                    <div class="menu-btn secondary">我的道具</div>
-                    <div class="menu-btn secondary">我的卡组</div>
-                    <div class="menu-btn secondary">我的设置</div>
+            <div class="card metric-card">
+                <div class="card-head">
+                    <h2 class="card-title">{{ icon_tile("heart") }}好感度</h2>
+                    <span class="level-badge">{{ data.favorability.level_text }}</span>
+                </div>
+                <div class="metric-main">
+                    <span class="metric-value">{{ data.favorability.current }}</span>
+                    <span class="metric-rank">群排{{ data.favorability.group_rank }} / 总排{{ data.favorability.total_rank }}</span>
+                </div>
+                <div class="progress-panel">
+                    <div class="progress-row">
+                        <span>下一等级 {{ data.favorability.next_level_at }}</span>
+                        <span>还需 {{ data.favorability.remaining }}</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" style="width: {{ data.favorability.progress }}%;"></div>
+                    </div>
                 </div>
             </div>
+
+            <div class="card metric-card gold-card">
+                <div class="card-head">
+                    <h2 class="card-title">{{ icon_tile("coins") }}金币</h2>
+                </div>
+                <div class="metric-main">
+                    <span class="metric-value">{{ data.gold.value }}</span>
+                    <span class="metric-rank">群排{{ data.gold.group_rank }} / 总排{{ data.gold.total_rank }}</span>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Right Column: Stats & Charts -->
         <div class="grid-col right-col">
-            <!-- Favorability Banner -->
-            <div class="card favorability-banner">
-                <div class="fav-title-row">
-                    <h2 class="card-title">当前好感状态</h2>
-                    <span class="fav-level-badge">LV.{{data.favorability.level}}</span>
-                </div>
-                <div class="fav-stages">
-                    <span class="stage {% if data.favorability.selected_indices[0] %}active{% endif %}">路人</span>
-                    <span class="stage {% if data.favorability.selected_indices[1] %}active{% endif %}">陌生</span>
-                    <span class="stage {% if data.favorability.selected_indices[2] %}active{% endif %}">初识</span>
-                    <span class="stage {% if data.favorability.selected_indices[3] %}active{% endif %}">普通</span>
-                    <span class="stage {% if data.favorability.selected_indices[4] %}active{% endif %}">熟悉</span>
-                    <span class="stage {% if data.favorability.selected_indices[5] %}active{% endif %}">信赖</span>
-                    <span class="stage {% if data.favorability.selected_indices[6] %}active{% endif %}">相知</span>
-                    <span class="stage {% if data.favorability.selected_indices[7] %}active{% endif %}">厚谊</span>
-                    <span class="stage {% if data.favorability.selected_indices[8] %}active{% endif %}">亲密</span>
-                </div>
-            </div>
-
-            <!-- Core Stats Grid -->
             <div class="stats-cards">
                 <div class="stat-box">
-                    <div class="stat-icon gold">💰</div>
+                    {{ icon_tile("message-circle-more") }}
                     <div class="stat-details">
-                        <div class="stat-value">{{data.stats.gold}}</div>
-                        <div class="stat-name">金币数量</div>
+                        <div class="stat-name">累计发言</div>
                     </div>
+                    <div class="stat-value">{{ data.stats.chat_count }}</div>
                 </div>
                 <div class="stat-box">
-                    <div class="stat-icon prop">🎒</div>
+                    {{ icon_tile("audio-lines") }}
                     <div class="stat-details">
-                        <div class="stat-value">{{data.stats.prop_count}}</div>
-                        <div class="stat-name">道具数量</div>
+                        <div class="stat-name">累计调用</div>
                     </div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-icon call">⚡</div>
-                    <div class="stat-details">
-                        <div class="stat-value">{{data.stats.call_count}}</div>
-                        <div class="stat-name">调用次数</div>
-                    </div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-icon chat">💬</div>
-                    <div class="stat-details">
-                        <div class="stat-value">{{data.stats.chat_count}}</div>
-                        <div class="stat-name">发言统计</div>
-                    </div>
+                    <div class="stat-value">{{ data.stats.call_count }}</div>
                 </div>
             </div>
 
-            <!-- Chart Card -->
             <div class="card chart-card">
-                <h2 class="card-title"><span class="icon">📈</span> 近期发言趋势</h2>
-                <div id="chart" class="chart-container"></div>
+                <div class="chart-head">
+                    <h2 class="card-title">{{ icon_tile("chart-column") }}过去七日活动趋势</h2>
+                    <div class="trend-summary">
+                        <span class="trend-item trend-chat"><i></i>发言 {{ data.activity.chat_total }} <em>{{ data.activity.chat_rank }}</em></span>
+                        <span class="trend-item trend-call"><i></i>调用 {{ data.activity.call_total }} <em>{{ data.activity.call_rank }}</em></span>
+                    </div>
+                </div>
+                <div class="chart-shell">
+                    <div class="chart-plot">
+                        <span class="axis-title axis-title-chat">发言</span>
+                        <div id="activity-chart" class="chart-container"></div>
+                        <span class="axis-title axis-title-call">调用</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
