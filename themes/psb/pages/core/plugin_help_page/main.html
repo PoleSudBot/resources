@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block body_content %}
-    <div class="container">
+    <div class="container{% if data.style_name %} style-{{ data.style_name }}{% endif %}">
         {# Simplified header without background block or image #}
         <div class="header">
             <h1>{{ data.bot_nickname }}</h1>

@@ -108,3 +108,72 @@ body {
 .usage.markdown-content li {
     color: var(--color-plugin-help-page-usage-text); /* #e7e7e7 */
 }
+
+.container.style-landscape {
+    width: 1880px;
+    max-width: none;
+}
+
+.style-landscape .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 18px;
+    padding: 22px 28px;
+}
+
+.style-landscape .header h1 {
+    font-size: 30px;
+}
+
+.style-landscape .header p {
+    margin: 0;
+    font-size: 17px;
+}
+
+.style-landscape .content {
+    padding: 24px;
+    column-count: 4;
+    column-gap: 18px;
+}
+
+.style-landscape .category-header {
+    column-span: none;
+    padding: 10px 14px;
+    margin: 0 0 12px;
+    font-size: 17px;
+    border-radius: 10px;
+    break-inside: avoid;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+}
+
+.style-landscape .category-header svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.style-landscape .item-card {
+    padding: 14px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+}
+
+.style-landscape .item-card h4 {
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.style-landscape .item-card p {
+    font-size: 13px;
+    line-height: 1.45;
+    margin-bottom: 8px;
+}
+
+.style-landscape .usage {
+    padding: 9px 11px;
+    border-radius: 7px;
+    font-size: 12px;
+    line-height: 1.45;
+}
