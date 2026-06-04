@@ -131,8 +131,8 @@
     "round": "9999px"
   },
   "typography": {
-    "font_family_main": "AlibabaHealthFont2, sans-serif",
-    "font_family_header": "fzrzFont, sans-serif",
+    "font_family_main": "\"HarmonyOS Sans SC\", \"HarmonyOS Sans\", \"Microsoft YaHei\", sans-serif",
+    "font_family_header": "\"HarmonyOS Sans SC\", \"HarmonyOS Sans\", \"Microsoft YaHei\", sans-serif",
     "sizes": {
       "xs": "12px",
       "sm": "14px",
