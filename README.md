@@ -17,7 +17,7 @@ resources/
     │   ├── templates/        # Jinja2 模板文件
     │   │   ├── components/   # 可复用的UI组件 (如表格, 卡片)
     │   │   ├── layouts/      # 布局模板 (如网格, 列布局)
-    │   │   ├── pages/        # 完整的页面模板 (如帮助, 商店)
+    │   │   ├── pages/        # 完整的页面模板 (如帮助、签到)
     │   │   └── partials/     # 可被包含的模板片段 (如页眉, 页脚)
     │   └── palette.json      # 主题调色板和设计变量
     │
